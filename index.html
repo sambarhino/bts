@@ -3,205 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Black Technical Studios | The Integrated Leader</title>
+    <title>The Black Technical Studios | The Cornbread Project</title>
     <style>
-        /* CSS VARIABLES FOR THE PALETTE */
         :root {
-            --bg-teal: #4A9091;
-            --accent-orange: #E67E51;
-            --paper-white: #F2EFE9;
-            --tech-black: #1A1A1A;
-            --grain: url('https://www.transparenttextures.com/patterns/stardust.png');
+            --teal: #6eb3ac;
+            --orange: #e67e22;
+            --cream: #f4ecd8;
+            --dark-grey: #1a1a1a;
+            --white: #ffffff;
+            --grain: url('https://grainy-gradients.vercel.app/noise.svg');
         }
 
         * { box-sizing: border-box; }
 
         body {
-            background-color: var(--bg-teal);
-            background-image: var(--grain);
-            color: var(--tech-black);
-            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--teal);
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
-            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* GRAINY OVERLAY EFFECT */
+        /* Texture Overlays */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: var(--grain);
-            opacity: 0.4;
+            opacity: 0.3;
             pointer-events: none;
             z-index: 9999;
         }
 
-        /* NAVIGATION */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            width: 100%;
+        }
+
+        .logo {
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
         nav {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            padding: 25px;
-            background: var(--paper-white);
-            border-bottom: 4px solid var(--tech-black);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
         }
 
         nav a {
             text-decoration: none;
-            color: var(--tech-black);
-            font-weight: bold;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            padding: 5px 10px;
-            border: 2px solid transparent;
+            font-weight: bold;
+            font-size: 14px;
+            padding: 8px 16px;
+            color: var(--dark-grey);
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: 0.3s;
         }
 
-        nav a:hover {
-            border: 2px solid var(--accent-orange);
-            background: var(--accent-orange);
+        nav a.active {
+            background: var(--orange);
             color: white;
+            border-color: var(--orange);
         }
 
-        /* HERO SECTION */
-        header {
+        nav a.border-box {
+            border: 2px solid var(--dark-grey);
+            background: transparent;
+        }
+
+        /* Main Screen Container */
+        .main-frame {
+            background-color: var(--cream);
+            width: 90%;
+            max-width: 900px;
+            border: 15px solid var(--dark-grey);
+            box-shadow: 20px 20px 0px rgba(0,0,0,0.15);
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .hero-text {
+            color: var(--orange);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
             text-align: center;
-            padding: 80px 20px;
+            margin: 0 0 30px 0;
+            line-height: 1;
+            letter-spacing: -1px;
         }
 
-        .logo-area {
-            max-width: 300px;
-            margin: 0 auto 20px;
-            border: 5px solid var(--tech-black);
-            padding: 20px;
-            background: var(--paper-white);
-            box-shadow: 10px 10px 0px var(--tech-black);
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #2c2c54;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-bottom: 40px;
         }
 
-        h1 { font-size: 2.5rem; letter-spacing: -1px; line-height: 0.9; }
-
-        /* THE INTEGRATED LEADER JOURNEY SECTION */
-        .manifesto {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--paper-white);
-            padding: 50px;
-            border: 8px solid var(--tech-black);
-            box-shadow: 20px 20px 0px var(--accent-orange);
-            margin-bottom: 100px;
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            border: 5px solid white;
+            border-radius: 50%;
+            position: relative;
         }
 
-        .tagline {
-            color: var(--accent-orange);
-            font-weight: bold;
-            text-transform: uppercase;
+        .play-btn::after {
+            content: "";
+            position: absolute;
+            top: 22px; left: 30px;
+            border-style: solid;
+            border-width: 15px 0 15px 25px;
+            border-color: transparent transparent transparent white;
         }
 
-        /* LABS GRID */
-        .labs-grid {
+        /* Grid Sections */
+        .content-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto 100px;
-            padding: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
         }
 
-        .card {
-            background: var(--paper-white);
-            border: 4px solid var(--tech-black);
-            padding: 20px;
-            transition: transform 0.2s;
+        h3 {
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            color: var(--dark-grey);
+            border-bottom: 2px solid var(--orange);
+            padding-bottom: 5px;
+            margin-bottom: 15px;
         }
 
-        .card:hover { transform: translate(-5px, -5px); box-shadow: 5px 5px 0px var(--tech-black); }
+        .signal-box, .amplify-box {
+            padding: 10px 0;
+        }
 
-        .btn {
+        /* Feed Section */
+        .tech-feed {
+            background: #111;
+            color: #0f0;
+            font-family: monospace;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 12px;
+            border-radius: 4px;
+        }
+
+        .btn-cta {
             display: inline-block;
-            margin-top: 20px;
-            padding: 15px 25px;
-            background: var(--tech-black);
+            background: var(--orange);
             color: white;
+            padding: 12px 24px;
             text-decoration: none;
             font-weight: bold;
-            border: none;
-            cursor: pointer;
+            border-radius: 50px;
+            margin-top: 20px;
         }
 
-        .btn:hover { background: var(--accent-orange); }
-
-        /* SUBSTACK FORM PLACEHOLDER */
-        .substack-box {
-            background: #FFD54F; /* Bright yellow for attention */
-            padding: 40px;
-            text-align: center;
-            border: 4px dashed var(--tech-black);
-            max-width: 600px;
-            margin: 0 auto 100px;
+        @media (max-width: 768px) {
+            .content-grid { grid-template-columns: 1fr; }
         }
-
-        footer { text-align: center; padding: 50px; font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
+<header>
+    <img src="images/logo.png" alt="Black Technical Studios" class="logo">
     <nav>
-        <a href="#labs">Labs</a>
-        <a href="#integrated">The Integrated Leader</a>
-        <a href="#join">Join</a>
-        <a href="#about">About</a>
+        <a href="#">Labs</a>
+        <a href="#">Cornbread</a>
+        <a href="#" class="border-box">Integrated Leader</a>
+        <a href="#">Join</a>
+        <a href="#">Theory</a>
+        <a href="#">About</a>
     </nav>
+</header>
 
-    <header>
-        <div class="logo-area">
-            <h1>THE BLACK<br>TECHNICAL<br>STUDIOS</h1>
+<main class="main-frame">
+    <h1 class="hero-text">HUMANITY. TECHNOLOGY. SYMBIOSIS.</h1>
+    
+    <div class="video-placeholder">
+        <div class="play-btn"></div>
+    </div>
+
+    <div class="content-grid">
+        <div class="signal-box">
+            <h3>New Signals</h3>
+            <p>Scanning the horizon for high-fidelity shifts in the technical landscape.</p>
         </div>
-        <p class="tagline">// HUMANITY . TECHNOLOGY . SYMBIOSIS //</p>
-    </header>
-
-    <section class="manifesto" id="integrated">
-        <p class="tagline">The Origin Story</p>
-        <h2>The High-Fidelity Advantage</h2>
-        <p>
-            My neurodivergence is not a glitch; it is my highest-resolution lens. 
-            As a <strong>Queer, Neurodiverse, and Highly Sensitive (HSP)</strong> leader, 
-            I see the patterns others miss and feel the friction in systems before they break.
-        </p>
-        <p>
-            The Integrated Leader is a journey from overwhelmed to calibrated. 
-            We use technical rigor to protect human sensitivity.
-        </p>
-        <a href="#join" class="btn">RUN SYSTEM DIAGNOSTIC // JOIN THE LIST</a>
-    </section>
-
-    <section class="labs-grid" id="labs">
-        <div class="card">
-            <h3>LAB 01: CORNBREAD</h3>
-            <p>Researching the relationship between communal nourishment and technical infrastructure.</p>
-            <small>Status: ACTIVE</small>
+        <div class="amplify-box">
+            <h3>Amplify</h3>
+            <p>Elevating the hidden narratives within technical systems and leadership structures.</p>
         </div>
-        <div class="card">
-            <h3>LAB 02: READING RAINBOW</h3>
-            <p>Decoding digital literacy through the spectrum of neurodiverse thought.</p>
-            <small>Status: ACTIVE</small>
+    </div>
+
+    <div class="content-grid" style="margin-top: 40px;">
+        <div>
+            <h3>The Integrated Leader</h3>
+            <p style="font-size: 0.9rem;">My journey from overmilling to integration. A high-fidelity lens for leadership calibration.</p>
+            <a href="#" class="btn-cta">RUN YOUR LEADAGISTIC //</a>
         </div>
-    </section>
+        <div>
+            <h3>Crafting Human Narratives for Technology</h3>
+            <p style="font-size: 0.9rem;">Featuring excerpts from: <em>The Black Technical Object: On Machine Learning and the Aspiration of Black Being.</em></p>
+        </div>
+    </div>
 
-    <section class="substack-box" id="join">
-        <h2>JOIN THE BLACK TECHNICAL FEED</h2>
-        <p>Get the latest Lab Notes and Integrated Leadership strategy in your inbox.</p>
-        <form>
-            <input type="email" placeholder="email@address.com" style="padding: 10px; width: 70%;">
-            <button type="button" class="btn">SUBSCRIBE</button>
-        </form>
-    </section>
-
-    <footer>
-        &copy; 2025 THE BLACK TECHNICAL STUDIOS // BUILT FOR THE INTEGRATED LEADER
-    </footer>
+    <div class="tech-feed">
+        > INITIALIZING BLACK TECHNICAL FEED...<br>
+        > DATA SOURCE: MACHINE LEARNING ASPIRATIONS<br>
+        > STATUS: ACTIVE
+    </div>
+</main>
 
 </body>
 </html>
