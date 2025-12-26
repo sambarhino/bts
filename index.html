@@ -6,117 +6,122 @@
     <title>The Black Technical Studios | The Cornbread Project</title>
     <style>
         :root {
-            --teal: #6eb3ac;
+            --teal: #78b7b2;
             --orange: #e67e22;
             --cream: #f4ecd8;
-            --dark-grey: #1a1a1a;
-            --white: #ffffff;
-            --grain: url('https://grainy-gradients.vercel.app/noise.svg');
+            --dark: #1a1a1a;
+            --shadow: rgba(0,0,0,0.25);
+            /* SVG Grain for that tactile feel */
+            --grain: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" /></filter><rect width="100%" height="100%" filter="url(%23noise)" /></svg>');
         }
-
-        * { box-sizing: border-box; }
 
         body {
             background-color: var(--teal);
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             margin: 0;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            font-family: 'Helvetica Neue', sans-serif;
             min-height: 100vh;
-            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Texture Overlays */
-        body::before {
+        /* TEXTURE OVERLAY - This is what was missing */
+        body::after {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: var(--grain);
-            opacity: 0.3;
+            opacity: 0.25;
             pointer-events: none;
-            z-index: 9999;
+            z-index: 100;
+        }
+
+        /* Background Vignette to give it depth */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.15) 100%);
+            pointer-events: none;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
-            width: 100%;
+            margin-bottom: 40px;
+            z-index: 10;
         }
 
-        .logo {
-            max-width: 200px;
+        .logo-placeholder {
+            width: 180px;
             margin-bottom: 20px;
+            filter: drop-shadow(4px 4px 0px var(--shadow));
         }
 
         nav {
             display: flex;
+            gap: 12px;
             justify-content: center;
-            gap: 10px;
             flex-wrap: wrap;
-            margin-bottom: 30px;
         }
 
         nav a {
             text-decoration: none;
             text-transform: uppercase;
-            font-weight: bold;
-            font-size: 14px;
-            padding: 8px 16px;
-            color: var(--dark-grey);
+            font-weight: 900;
+            font-size: 13px;
+            padding: 8px 18px;
+            color: var(--dark);
             background: rgba(255,255,255,0.2);
             border: 1px solid rgba(0,0,0,0.1);
-            transition: 0.3s;
+            box-shadow: 4px 4px 0px var(--shadow);
+            transition: 0.2s;
         }
 
-        nav a.active {
-            background: var(--orange);
-            color: white;
-            border-color: var(--orange);
-        }
+        nav a.active { background: var(--orange); color: white; }
+        nav a.border-box { border: 2px solid var(--dark); background: transparent; }
 
-        nav a.border-box {
-            border: 2px solid var(--dark-grey);
-            background: transparent;
-        }
-
-        /* Main Screen Container */
+        /* THE MAIN PRINTED FRAME */
         .main-frame {
             background-color: var(--cream);
-            width: 90%;
-            max-width: 900px;
-            border: 15px solid var(--dark-grey);
-            box-shadow: 20px 20px 0px rgba(0,0,0,0.15);
-            padding: 40px;
-            margin-bottom: 60px;
+            width: 100%;
+            max-width: 850px;
+            border: 12px solid var(--dark);
+            box-shadow: 25px 25px 0px var(--shadow);
+            padding: 50px;
+            z-index: 5;
             position: relative;
+            background-image: var(--grain); /* Grain on the paper too */
         }
 
-        .hero-text {
+        .hero-title {
             color: var(--orange);
-            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-size: 3.5rem;
             font-weight: 900;
             text-align: center;
-            margin: 0 0 30px 0;
-            line-height: 1;
-            letter-spacing: -1px;
+            margin: 0 0 40px 0;
+            line-height: 0.9;
+            letter-spacing: -2px;
+            filter: contrast(110%);
         }
 
-        .video-placeholder {
+        .video-box {
             width: 100%;
             aspect-ratio: 16/9;
-            background: #2c2c54;
+            background: #2b2b4d;
+            border: 4px solid var(--dark);
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
+            box-shadow: 8px 8px 0px var(--shadow);
         }
 
         .play-btn {
-            width: 80px;
-            height: 80px;
-            border: 5px solid white;
+            width: 90px;
+            height: 90px;
+            border: 6px solid white;
             border-radius: 50%;
             position: relative;
         }
@@ -124,66 +129,70 @@
         .play-btn::after {
             content: "";
             position: absolute;
-            top: 22px; left: 30px;
+            top: 25px; left: 35px;
             border-style: solid;
-            border-width: 15px 0 15px 25px;
+            border-width: 20px 0 20px 30px;
             border-color: transparent transparent transparent white;
         }
 
-        /* Grid Sections */
-        .content-grid {
+        .section-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 50px;
+            margin-top: 30px;
         }
 
         h3 {
             text-transform: uppercase;
-            font-size: 1.2rem;
-            color: var(--dark-grey);
-            border-bottom: 2px solid var(--orange);
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: var(--dark);
+            margin: 0 0 15px 0;
+            border-bottom: 3px solid var(--orange);
+            display: inline-block;
         }
 
-        .signal-box, .amplify-box {
-            padding: 10px 0;
-        }
-
-        /* Feed Section */
-        .tech-feed {
-            background: #111;
-            color: #0f0;
-            font-family: monospace;
-            padding: 15px;
-            margin-top: 30px;
-            font-size: 12px;
-            border-radius: 4px;
-        }
+        p { color: #444; line-height: 1.4; font-size: 0.95rem; }
 
         .btn-cta {
             display: inline-block;
             background: var(--orange);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 900;
             border-radius: 50px;
             margin-top: 20px;
+            box-shadow: 6px 6px 0px var(--shadow);
+            text-transform: uppercase;
+        }
+
+        .terminal-feed {
+            background: #0a0a0a;
+            color: #4ade80;
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            margin-top: 50px;
+            font-size: 12px;
+            border-left: 5px solid var(--orange);
+            box-shadow: 6px 6px 0px var(--shadow);
         }
 
         @media (max-width: 768px) {
-            .content-grid { grid-template-columns: 1fr; }
+            .section-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.2rem; }
+            .main-frame { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="images/logo.png" alt="Black Technical Studios" class="logo">
+    <div class="logo-placeholder">
+        <h2 style="margin:0; letter-spacing: 2px;">THE BLACK<br>TECHNICAL<br>STUDIOS</h2>
+    </div>
     <nav>
         <a href="#">Labs</a>
-        <a href="#">Cornbread</a>
+        <a href="#" class="active">Cornbread</a>
         <a href="#" class="border-box">Integrated Leader</a>
         <a href="#">Join</a>
         <a href="#">Theory</a>
@@ -192,39 +201,39 @@
 </header>
 
 <main class="main-frame">
-    <h1 class="hero-text">HUMANITY. TECHNOLOGY. SYMBIOSIS.</h1>
+    <h1 class="hero-title">HUMANITY. TECHNOLOGY. SYMBIOSIS.</h1>
     
-    <div class="video-placeholder">
+    <div class="video-box">
         <div class="play-btn"></div>
     </div>
 
-    <div class="content-grid">
-        <div class="signal-box">
+    <div class="section-grid">
+        <div>
             <h3>New Signals</h3>
-            <p>Scanning the horizon for high-fidelity shifts in the technical landscape.</p>
+            <p>Scanning the horizon for high-fidelity shifts in the technical landscape and systemic leadership patterns.</p>
         </div>
-        <div class="amplify-box">
+        <div>
             <h3>Amplify</h3>
-            <p>Elevating the hidden narratives within technical systems and leadership structures.</p>
+            <p>Elevating hidden narratives within technical systems. Crafting the human stories that architect our futures.</p>
         </div>
     </div>
 
-    <div class="content-grid" style="margin-top: 40px;">
+    <div class="section-grid" style="border-top: 1px solid rgba(0,0,0,0.1); padding-top: 30px;">
         <div>
             <h3>The Integrated Leader</h3>
-            <p style="font-size: 0.9rem;">My journey from overmilling to integration. A high-fidelity lens for leadership calibration.</p>
+            <p>A high-fidelity lens for leadership calibration. Tuning the signal from overmilled to fully integrated.</p>
             <a href="#" class="btn-cta">RUN YOUR LEADAGISTIC //</a>
         </div>
         <div>
-            <h3>Crafting Human Narratives for Technology</h3>
-            <p style="font-size: 0.9rem;">Featuring excerpts from: <em>The Black Technical Object: On Machine Learning and the Aspiration of Black Being.</em></p>
+            <h3>Crafting Narratives</h3>
+            <p>Featuring excerpts from: <em>The Black Technical Object: On Machine Learning and the Aspiration of Black Being.</em></p>
         </div>
     </div>
 
-    <div class="tech-feed">
+    <div class="terminal-feed">
+        > SYSTEM STATUS: CALIBRATED<br>
         > INITIALIZING BLACK TECHNICAL FEED...<br>
-        > DATA SOURCE: MACHINE LEARNING ASPIRATIONS<br>
-        > STATUS: ACTIVE
+        > SIGNAL SOURCE: THE CORNBREAD PROJECT // 100%
     </div>
 </main>
 
